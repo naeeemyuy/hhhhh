@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>কিলার বাড়া</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6">
+    <h2 class="text-2xl font-bold text-center text-red-600">কিলার বাড়া</h2>
+
+    <!-- Country Select -->
+    <div>
+      <label class="block font-medium text-gray-700">দেশ নির্বাচন করুন:</label>
+      <select id="country" class="mt-1 w-full p-2 border rounded-lg">
+        <option value="">-- দেশ নির্বাচন করুন --</option>
+      </select>
+    </div>
+
+    <!-- District Select -->
+    <div>
+      <label class="block font-medium text-gray-700">জেলা নির্বাচন করুন:</label>
+      <select id="district" class="mt-1 w-full p-2 border rounded-lg">
+        <option value="">-- প্রথমে দেশ নির্বাচন করুন --</option>
+      </select>
+    </div>
+
+    <!-- Image Upload -->
+    <div>
+      <label class="block font-medium text-gray-700">ছবি আপলোড করুন:</label>
+      <input type="file" class="mt-1 w-full p-2 border rounded-lg" />
+    </div>
+
+    <!-- Payment Select -->
+    <div>
+      <label class="block font-medium text-gray-700">পেমেন্ট মাধ্যম নির্বাচন করুন:</label>
+      <select class="mt-1 w-full p-2 border rounded-lg">
+        <option value="">-- নির্বাচন করুন --</option>
+        <option value="bkash">গুলি পায়ে</option>
+        <option value="nagad">খতম</option>
+        <option value="rocket">আদা মারা</option>
+      </select>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+      <button class="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300">
+        সাবমিট করুন
+      </button>
+    </div>
+  </div>
+
+  <!-- Country & District JS -->
+  <script>
+    // Country list with districts
+    const countryList = {
+      "বাংলাদেশ": ["ঢাকা", "চট্টগ্রাম", "সিলেট", "রাজশাহী"],
+      "ভারত": ["কলকাতা", "দিল্লি", "মুম্বাই", "চেন্নাই"],
+      "পাকিস্তান": ["লাহোর", "করাচি", "ইসলামাবাদ"],
+      "সিঙ্গাপুর": [
+        "Central Area", "Bukit Batok", "Bukit Merah", "Bukit Panjang", "Bukit Timah",
+        "Choa Chu Kang", "Clementi", "Geylang", "Jurong East", "Jurong West",
+        "Kallang", "Marine Parade", "Pasir Ris", "Punggol", "Queenstown",
+        "Sembawang", "Sengkang", "Serangoon", "Tampines", "Toa Payoh",
+        "Woodlands", "Yishun"
+      ]
+    };
+
+    const countrySelect = document.getElementById("country");
+    const districtSelect = document.getElementById("district");
+
+    // Load countries into dropdown
+    Object.keys(countryList).forEach(country => {
+      const option = document.createElement("option");
+      option.value = country;
+      option.textContent = country;
+      countrySelect.appendChild(option);
+    });
+
+    // Load districts on country change
+    countrySelect.addEventListener("change", function () {
+      const selectedCountry = this.value;
+      districtSelect.innerHTML = '<option value="">-- জেলা নির্বাচন করুন --</option>';
+      
+      if (countryList[selectedCountry]) {
+        countryList[selectedCountry].forEach(district => {
+          const option = document.createElement("option");
+          option.value = district;
+          option.textContent = district;
+          districtSelect.appendChild(option);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
